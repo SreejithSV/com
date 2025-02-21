@@ -1,0 +1,48 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %}Wishlist{% endblock title %}
+
+{% block main-content %}
+<br><br>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        {% if wishlist.exists %}
+        <h1 class="text-center mb-5">Your Wishlist</h1>
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    {% for item in wishlist %}
+                    <div class="row align-items-center mb-3">
+                        <div class="col-md-3 text-center">
+                            <img src="{{ item.product.product_image.url }}" class="img-fluid img-thumbnail shadow-sm" height="150" width="150" alt="{{ item.product.title }}">
+                        </div>
+                        <div class="col-md-6">
+                            <h5>{{ item.product.title }}</h5>
+                            <p class="text-muted small">{{ item.product.description }}</p>
+                            <p><strong>Rs. {{ item.product.discounted_price }}</strong></p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <button class="btn btn-danger btn-sm minus-wishlist" pid="{{ item.product.id }}">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <h1 class="text-center mb-5">Your Wishlist is Empty</h1>
+        <div class="text-center">
+            <a href="/" class="btn btn-primary">Continue Shopping</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+</script>
+{% endblock main-content %}

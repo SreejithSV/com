@@ -1,0 +1,62 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}
+  Profile
+{% endblock %}
+
+{% block main-content %}
+<br><br>
+<div class="container my-5">
+  <div class="row">
+    <h1 class="text-center">Welcome <span class="text-capitalize">{{ request.user }}</span></h1>
+    <hr><br/><br/>
+
+ 
+    <div class="col-12 col-sm-3 border-end">
+      <ul class="list-unstyled">
+        <li class="d-grid mb-2">
+          <a href="{% url 'profile' %}" class="btn btn-primary">Profile</a>
+        </li>
+        <li class="d-grid mb-2">
+          <a href="{% url 'address' %}" class="btn">Address</a>
+        </li>
+      </ul>
+    </div>
+
+
+    <div id="profile-list" class="col-12 col-sm-8 offset-sm-1" style="opacity: 1; transition: opacity 0.5s ease-in-out; visibility: visible;">
+      <div class="card m-2">
+        <div class="card-body">
+          <form action="" method="post">
+            {% csrf_token %}
+            <h3>Edit Profile</h3>
+
+            {% for fm in form %}
+              <div class="mb-3">
+                {{ fm.label_tag }} {{ fm }}
+                <small class="text-danger">{{ fm.errors |striptags }}</small>
+              </div>
+            {% endfor %}
+
+            <div class="col-12 mt-3">
+              <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+   
+    <div id="address-list" class="col-12 col-sm-8 offset-sm-1" style="opacity: 0; transition: opacity 0.5s ease-in-out; visibility: hidden;">
+      <div class="card m-2">
+        <div class="card-body">
+          <h3>Your Address</h3>
+          <p>Here you can add or edit your address information.</p>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock main-content %}

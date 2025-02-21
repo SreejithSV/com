@@ -1,0 +1,95 @@
+{% extends "app/base.html" %}
+{% load static%}
+{% block title %}Contact{% endblock title %}
+
+{% block banner-slider %}
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'app/images/banner/b15.jpg' %}" class="d-block w-100 pt-2 carousel-image" alt="Banner 1">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'app/images/banner/b3.jpg' %}" class="d-block w-100 pt-2 carousel-image" alt="Banner 2">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'app/images/banner/b2.jpg' %}" class="d-block w-100 pt-2 carousel-image" alt="Banner 3">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'app/images/banner/b4.jpg' %}" class="d-block w-100 pt-2 carousel-image" alt="Banner 4">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'app/images/banner/b11.jpg' %}" class="d-block w-100 pt-2 carousel-image" alt="Banner 4">
+        </div>
+    </div>
+</div>
+{% endblock banner-slider %}
+
+{% block main-content %}
+    <!-- Hero Section -->
+    <section class="bg-primary text-white text-center py-3">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Contact Us</h1>
+          <p class="lead">We’d love to hear from you! Reach out to us for any inquiries or assistance.</p>
+        </div>
+      </section>
+  
+      <div class="container py-5">
+        <div class="row g-4">
+          <!-- Contact Form -->
+          <div class="col-md-6">
+            <h3 class="fw-bold mb-4">Get in Touch</h3>
+            <form>
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required />
+              </div>
+              <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" placeholder="Enter subject" required />
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="5" placeholder="Type your message" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Send Message</button>
+            </form>
+          </div>
+  
+          <!-- Contact Information -->
+          <div class="col-md-6">
+            <h3 class="fw-bold mb-4 mx-3">Contact Information</h3>
+            <p class="mx-3">Feel free to reach out to us directly through the details below:</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                    <strong>Name: </strong> Sreejith SV
+             </li>
+              <li class="list-group-item">
+                <strong>Address:</strong> 123 Business Street, City, Country
+              </li>
+              <li class="list-group-item">
+                <strong>Email:</strong>
+                <a href="mailto:sreejith.the.prince@gmail.com" class="text-decoration-none text-dark">sreejith.the.prince@gmail.com</a>
+              </li>
+              <li class="list-group-item">
+                <strong>Phone:</strong> +91 740 203 2142
+              </li>
+              <li class="list-group-item">
+                <strong>Working Hours:</strong> Mon - Fri: 9:00 AM - 6:00 PM
+              </li>
+            </ul>
+            <h4 class="fw-bold mt-4 mx-3">Follow Us</h4>
+            <div class="d-flex mx-3">
+              <a href="https://www.facebook.com/sreejith.the.prince" class="me-3 text-primary "><i style="transition: color 0.3s; color: #0866ff;"onmouseover="this.style.color='#b8bab9';" onmouseout="this.style.color='#0866ff';" class="fab fa-facebook fa-2x"></i></a>
+              <a href="https://www.instagram.com/liteset_sreejith/" class="me-3 text-primary"><i style="transition: color 0.1s; color: #ff3d7e;"onmouseover="this.style.color='#b8bab9';" onmouseout="this.style.color='#ff3d7e';" class="fab fa-instagram fa-2x"></i></a>
+              <a href="https://www.linkedin.com/in/sreejith-the-prince/" class="text-primary me-3"><i style="transition: color 0.1s; color:#0074b3;"onmouseover="this.style.color='#b8bab9';" onmouseout="this.style.color='#0074b3';" class="fab fa-linkedin fa-2x"></i></a>
+              <a href="https://github.com/SreejithSV" class="text-primary me-3"><i style="transition: color 0.3s; color: #000000;"onmouseover="this.style.color='#b8bab9';" onmouseout="this.style.color='#000000';" class="fab fa-github fa-2x"></i></a>
+              <a href="https://x.com/sreejith_prince" class="me-3 text-primary"><i style="transition: color 0.1s; color: #029fed;"onmouseover="this.style.color='#b8bab9';" onmouseout="this.style.color='#029fed';" class="fab fa-twitter fa-2x"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock main-content %}

@@ -1,0 +1,58 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %}Product{% endblock title %}
+
+{% block main-content %}
+
+<div class="container" style="margin-top:110px; margin-bottom:40px;">
+    <div class="row gap-4 align-items-center mt-3">
+        <!-- Product Image -->
+        <div class="col-12 col-lg-5 text-center">
+            <img src="{{ product.product_image.url }}" class="img-fluid shadow-sm rounded" alt="Product Image">
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-12 col-lg-6">
+            <h1 class="text-center" style="font-family: Georgia; font-size: 50px;">{{ product.title }}</h1>
+            <h5 class="text-center">
+                RS.{{ product.discounted_price }}/-
+                <small class="text-decoration-line-through text-muted fs-5">Rs.{{ product.selling_price }}/-</small>
+            </h5>
+
+            <br>
+            <h3>Product Features:</h3>
+            <ul class="fs-5" style="font-family: Rajdhani;">
+                <li>{{ product.description }}</li>
+                <li>{{ product.composition }}</li>
+                <li>{{ product.prodapp }}</li>
+            </ul>
+
+            <!-- Buttons -->
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3">
+                <form action="/add-to-cart" class="w-100 w-md-auto">
+                    <input type="hidden" name="prod_id" value="{{ product.id }}" />
+                    <button type="submit" class="btn btn-primary shadow w-100 w-md-auto">
+                        Add to Cart
+                    </button>
+                </form>
+
+                <a href="{% url 'checkout' %}" class="btn btn-warning shadow w-100 w-md-auto">
+                    Buy Now
+                </a>
+
+                {% if wishlist %}
+                <a pid="{{ product.id }}" class="minus-wishlist btn btn-danger shadow w-100 w-md-auto">
+                    <i class="fas fa-heart fa-lg"></i>
+                </a>
+                {% else %}
+                <a pid="{{ product.id }}" class="plus-wishlist btn btn-success shadow w-100 w-md-auto">
+                    <i class="fas fa-heart fa-lg"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

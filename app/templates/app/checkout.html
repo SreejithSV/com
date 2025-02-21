@@ -1,0 +1,182 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block main-content %}
+<br><br> <br>
+{% if messages %}
+    <div class="container">
+        {% for msg in messages %}
+            <div class="alert alert-danger" role="alert">{{ msg }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left Column: Order Summary -->
+        <div class="col-md-6">
+            <h4>Order Summary</h4>
+            <hr>
+
+            {% for item in cart_items %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Product: {{ item.product.title }}</h5>
+                    <p>Quantity: {{ item.quantity }}</p>
+                    <p class="fw-bold">Price: ₹{{ item.product.discounted_price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+              
+
+            
+            <p class="fw-bold">Total Cost + ₹40 = ₹{{ totalamount }}</p>
+            <small>Terms and Conditions apply.</small>
+        </div>
+        
+        <!-- Right Column: Shipping Address -->
+        <div class="col-md-5 offset-md-1">
+            <h4>Select Shipping Address</h4>
+         
+            <form method="post" id="myform">
+                {% csrf_token %}
+                {% for ad in add %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>{{ ad.name }}</h5>
+                        <p>Mobile: {{ ad.mobile }}</p>
+                        <p>{{ ad.locality }}, {{ ad.city }}, {{ ad.state }} - {{ ad.zipcode }}</p>
+                    </div>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="custid" id="custadd{{ forloop.counter }}" value="{{ ad.id }}">
+                    <label class="form-check-label" for="custadd{{ forloop.counter }}">
+                        Address: {{ forloop.counter }}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <div class="mb-3">
+                    <label for="totalamount" class="form-label">Total Amount:</label>
+                    <input class="form-control" type="number" name="totalamount" value="{{ totalamount }}" readonly>
+                </div>
+
+                <div class="text-end">
+                    <button class="btn btn-warning px-5 fw-bold" id="rzp-button1" type="button">Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay for the Popup -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Rating Popup -->
+<div class="popup" id="popup">
+    <h6>Payment method is not added</h6>
+    <h3>Rate Your Experience</h3>
+    <form method="post" action="{% url 'submit_rating' %}" id="ratingForm">
+        {% csrf_token %}
+        <div class="stars">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+        </div>
+        <input type="hidden" name="rating" id="ratingValue">
+        <div class="emoji">😊</div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit Rating</button>
+    </form>
+</div>
+
+<br><br><br>
+
+<style>
+    /* Styling for overlay */
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Styling for popup */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        width: 300px;
+        text-align: center;
+    }
+
+    /* Star Rating */
+    .stars {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    .star {
+        color: #ddd;
+    }
+
+    .star.active {
+        color: gold;
+    }
+
+    /* Emoji */
+    .emoji {
+        font-size: 50px;
+        margin-top: 10px;
+    }
+</style>
+
+<script>
+    const button = document.getElementById("rzp-button1");
+    const popup = document.getElementById("popup");
+    const overlay = document.getElementById("overlay");
+    const stars = document.querySelectorAll(".star");
+    const emoji = document.querySelector(".emoji");
+    const ratingValue = document.getElementById("ratingValue");
+
+    const emojis = ["\ud83d\ude21", "\ud83d\ude1e", "\ud83d\ude10", "\ud83d\ude0a", "\ud83d\ude0d"]; // Different emojis for ratings
+
+  
+    button.addEventListener("click", () => {
+        popup.style.display = "block";
+        overlay.style.display = "block";
+    });
+
+ 
+    stars.forEach(star => {
+        star.addEventListener("click", () => {
+            let rating = star.getAttribute("data-value");
+            ratingValue.value = rating;
+
+            stars.forEach(s => s.classList.remove("active"));
+            for (let i = 0; i < rating; i++) {
+                stars[i].classList.add("active");
+            }
+
+            emoji.innerText = emojis[rating - 1];
+        });
+    });
+</script>
+
+{% endblock %}
